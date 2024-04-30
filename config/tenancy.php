@@ -50,7 +50,7 @@ return [
          * Tenant database names are created like this:
          * prefix + tenant_id + suffix.
          */
-        'prefix' => 'sphere_tenant',
+        'prefix' => 'hrsphere_',
         'suffix' => '',
 
         /**
