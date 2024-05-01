@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('default');
 });
 
-Route::get('/make/tenant',[TenantController::class,'makeTenant'])->name('make.tenant');
+// Route::get('/make/tenant',[TenantController::class,'makeTenant'])->name('make.tenant');

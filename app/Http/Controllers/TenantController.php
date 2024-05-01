@@ -13,5 +13,10 @@ class TenantController extends Controller
             'name' => 'Tenant ' . Tenant::count(),
         ]);
 
+        //create domain
+        $domain = $tenant->domains()->create([
+            'domain' => 'tenant' . $tenant->id . '.localhost',
+        ]);
+
     }
 }

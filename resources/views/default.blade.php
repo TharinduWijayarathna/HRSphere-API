@@ -241,7 +241,6 @@
         <div class="row justify-content-center">
             <div class="col-md-10 main-title">
                 <h1>HRSPHERE</h1>
-                <h2>Backend</h2>
             </div>
         </div>
         <div class="row align-items-center">
