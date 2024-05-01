@@ -16,6 +16,10 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
 
+    Route::get('/', function () {
+        return tenant();
+    });
+
     Route::prefix('employee')->group(function () {
         Route::get('/', [EmployeeController::class, 'index']);
         Route::get('/list', [EmployeeController::class, 'list']);

@@ -10,12 +10,13 @@ class TenantController extends Controller
     public function makeTenant()
     {
         $tenant = Tenant::create([
-            'name' => 'Tenant ' . Tenant::count(),
+            'name' => 'Test Tenant',
+            'tenancy_db_name' => 'hr_sphere_test',
         ]);
 
         //create domain
         $domain = $tenant->domains()->create([
-            'domain' => 'tenant' . $tenant->id . '.localhost',
+            'domain' => 'test.localhost',
         ]);
 
     }
