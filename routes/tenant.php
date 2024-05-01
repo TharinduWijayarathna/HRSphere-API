@@ -2,19 +2,12 @@
 
 declare (strict_types = 1);
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+use Illuminate\Support\Facades\Route;
+use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 
-//tenant app api routes
-
-Route::middleware([
-    'api',
-    InitializeTenancyByDomain::class,
-    PreventAccessFromCentralDomains::class,
-])->group(function () {
+Route::middleware(['api', InitializeTenancyByRequestData::class])->prefix('tenant')->group(function () {
 
     Route::get('/', function () {
         return tenant();
@@ -29,7 +22,9 @@ Route::middleware([
         Route::post('/update/{id}', [EmployeeController::class, 'update']);
         Route::delete('/delete/{id}', [EmployeeController::class, 'delete']);
     });
+});
 
+Route::middleware('api')->prefix('auth')->group(function () {
     Route::prefix('user')->group(function () {
         Route::middleware('auth:sanctum')->group(function () {
             Route::get('/', [AuthController::class, 'user']);
