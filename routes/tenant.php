@@ -7,7 +7,7 @@ use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 
-Route::middleware(['api', InitializeTenancyByRequestData::class])->prefix('tenant')->group(function () {
+Route::middleware(['api', InitializeTenancyByRequestData::class])->prefix('api')->group(function () {
 
     Route::get('/', function () {
         return tenant();
@@ -24,7 +24,7 @@ Route::middleware(['api', InitializeTenancyByRequestData::class])->prefix('tenan
     });
 });
 
-Route::middleware('api')->prefix('auth')->group(function () {
+Route::middleware('api')->prefix('api')->group(function () {
     Route::prefix('user')->group(function () {
         Route::middleware('auth:sanctum')->group(function () {
             Route::get('/', [AuthController::class, 'user']);
