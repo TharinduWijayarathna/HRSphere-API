@@ -2,8 +2,8 @@
 
 declare (strict_types = 1);
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\tenant\AuthController;
+use App\Http\Controllers\tenant\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 

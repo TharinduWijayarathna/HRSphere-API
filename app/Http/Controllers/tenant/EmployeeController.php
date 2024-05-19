@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\tenant;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\ParentController;
 
 class EmployeeController extends ParentController
 {
