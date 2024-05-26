@@ -1,0 +1,11 @@
+{
+    "EmployeeManagement": true,
+    "AttendanceManagement": true,
+    "PayrollManagement": true,
+    "TalentManagement": true,
+    "TrainingAndDevelopmentManagement": true,
+    "UserManagement": true,
+    "ReportingAndAnalytics": true,
+    "ComplianceManagement": true,
+    "TenantManagement": true
+}

@@ -1,0 +1,11 @@
+{
+    "name": "ComplianceManagement",
+    "alias": "compliancemanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ComplianceManagement\\Providers\\ComplianceManagementServiceProvider"
+    ],
+    "files": []
+}

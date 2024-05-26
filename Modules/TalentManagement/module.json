@@ -1,0 +1,11 @@
+{
+    "name": "TalentManagement",
+    "alias": "talentmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TalentManagement\\Providers\\TalentManagementServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,11 @@
+{
+    "name": "PayrollManagement",
+    "alias": "payrollmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PayrollManagement\\Providers\\PayrollManagementServiceProvider"
+    ],
+    "files": []
+}

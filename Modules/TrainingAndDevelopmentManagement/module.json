@@ -1,0 +1,11 @@
+{
+    "name": "TrainingAndDevelopmentManagement",
+    "alias": "traininganddevelopmentmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TrainingAndDevelopmentManagement\\Providers\\TrainingAndDevelopmentManagementServiceProvider"
+    ],
+    "files": []
+}
