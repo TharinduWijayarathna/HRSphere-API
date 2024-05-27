@@ -8,54 +8,52 @@ This guide provides step-by-step instructions for setting up a Laravel applicati
 
 Before you begin, ensure you have the following installed on your system:
 
--   PHP (>= 7.3)
+-   PHP (>= 8.1)
 -   Composer
--   Node.js & NPM (for frontend assets)
 -   MySQL or other supported databases
 
 ## Setting Up a Laravel Application
 
-1. **Clone the repository:**
+1.  **Clone the repository:**
 
     ```bash
     git clone https://github.com/your-repo/your-laravel-project.git
     cd your-laravel-project
     ```
 
-2. **Install dependencies:**
-            
+2.  **Install dependencies:**
         ```bash
         composer install
-        npm install
         ```
-3. **Environment setup:**
+3.  **Environment setup:**
 
-    -   Copy the `.env.example` file to `.env` and update the database credentials.
-    -   Generate a new application key:
+    - Copy the `.env.example` file to `.env` and update the database credentials.
+    - Generate a new application key:
 
         ```bash
         php artisan key:generate
         ```
 
-4. **Generate an application key:**
-    
+4.  **Generate an application key:**
+
         ```bash
         php artisan key:generate
         ```
 
-5. **Run the migrations and seed the database:**
+5.  **Run the migrations and seed the database:**
 
     ```bash
     php artisan migrate --seed
     ```
-6. **Run the application:**
+
+6.  **Run the application:**
 
     ```bash
     php artisan serve
     ```
 
-7. **Access the application:**
-    
+7.  **Access the application:**
+
         Open your browser and navigate to `http://localhost:8000`.
 
 ## Custom Artisan Command: `make:module`
@@ -87,4 +85,3 @@ This will create a new module named `ExampleModule` in the `Modules` directory.
 ## Conclusion
 
 This guide provides a step-by-step process for setting up the HRIS application and generating new modules using a custom artisan command. By following these instructions, you can quickly create a new module and customize it to suit your needs.
-
