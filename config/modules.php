@@ -206,7 +206,7 @@ return [
     |
     */
     'composer' => [
-        'vendor' => env('MODULE_VENDOR', 'hrshphere'),
+        'vendor' => env('MODULE_VENDOR', 'hrsphere'),
         'author' => [
             'name' => env('MODULE_AUTHOR_NAME', 'Tharindu Wijayarathna'),
             'email' => env('MODULE_AUTHOR_EMAIL', 'wikum.dev@gmail.com'),
