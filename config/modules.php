@@ -206,10 +206,10 @@ return [
     |
     */
     'composer' => [
-        'vendor' => env('MODULE_VENDOR', 'nwidart'),
+        'vendor' => env('MODULE_VENDOR', 'hrshphere'),
         'author' => [
-            'name' => env('MODULE_AUTHOR_NAME', 'Nicolas Widart'),
-            'email' => env('MODULE_AUTHOR_EMAIL', 'n.widart@gmail.com'),
+            'name' => env('MODULE_AUTHOR_NAME', 'Tharindu Wijayarathna'),
+            'email' => env('MODULE_AUTHOR_EMAIL', 'wikum.dev@gmail.com'),
         ],
         'composer-output' => false,
     ],
