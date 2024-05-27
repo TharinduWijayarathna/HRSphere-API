@@ -34,25 +34,19 @@ Before you begin, ensure you have the following installed on your system:
         php artisan key:generate
         ```
 
-4.  **Generate an application key:**
-
-        ```bash
-        php artisan key:generate
-        ```
-
-5.  **Run the migrations and seed the database:**
+4.  **Run the migrations and seed the database:**
 
     ```bash
     php artisan migrate --seed
     ```
 
-6.  **Run the application:**
+5.  **Run the application:**
 
     ```bash
     php artisan serve
     ```
 
-7.  **Access the application:**
+6.  **Access the application:**
 
         Open your browser and navigate to `http://localhost:8000`.
 
