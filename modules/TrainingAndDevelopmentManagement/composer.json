@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/traininganddevelopmentmanagement",
+    "description": "",
+    "authors": [
+        {
+            "name": "Tharindu Wijayarathna",
+            "email": "wikum.dev@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\TrainingAndDevelopmentManagement\\": "app/",
+            "modules\\TrainingAndDevelopmentManagement\\Database\\Factories\\": "database/factories/",
+            "modules\\TrainingAndDevelopmentManagement\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "modules\\TrainingAndDevelopmentManagement\\Tests\\": "tests/"
+        }
+    }
+}

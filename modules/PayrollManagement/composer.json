@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/payrollmanagement",
+    "description": "",
+    "authors": [
+        {
+            "name": "Tharindu Wijayarathna",
+            "email": "wikum.dev@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\PayrollManagement\\": "app/",
+            "modules\\PayrollManagement\\Database\\Factories\\": "database/factories/",
+            "modules\\PayrollManagement\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "modules\\PayrollManagement\\Tests\\": "tests/"
+        }
+    }
+}

@@ -7,5 +7,6 @@
     "UserManagement": true,
     "ReportingAndAnalytics": true,
     "ComplianceManagement": true,
-    "TenantManagement": true
+    "TenantManagement": true,
+    "Test": true
 }

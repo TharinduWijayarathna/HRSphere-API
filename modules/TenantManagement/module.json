@@ -1,0 +1,11 @@
+{
+    "name": "TenantManagement",
+    "alias": "tenantmanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "modules\\TenantManagement\\Providers\\TenantManagementServiceProvider"
+    ],
+    "files": []
+}

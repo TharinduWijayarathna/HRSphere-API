@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/attendancemanagement",
+    "description": "",
+    "authors": [
+        {
+            "name": "Tharindu Wijayarathna",
+            "email": "wikum.dev@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\AttendanceManagement\\": "app/",
+            "modules\\AttendanceManagement\\Database\\Factories\\": "database/factories/",
+            "modules\\AttendanceManagement\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "modules\\AttendanceManagement\\Tests\\": "tests/"
+        }
+    }
+}
