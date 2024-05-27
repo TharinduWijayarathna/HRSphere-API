@@ -14,6 +14,13 @@ use Modules\UserManagement\Http\Controllers\UserManagementController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('usermanagement', UserManagementController::class)->names('usermanagement');
+Route::middleware('api')->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::get('/', [UserManagementController::class, 'user']);
+            Route::post('/logout', [UserManagementController::class, 'logout']);
+        });
+        Route::post('/register', [UserManagementController::class, 'register']);
+        Route::post('/login', [UserManagementController::class, 'login']);
+    });
 });

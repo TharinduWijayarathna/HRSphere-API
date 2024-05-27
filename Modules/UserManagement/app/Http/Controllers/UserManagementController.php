@@ -2,66 +2,85 @@
 
 namespace Modules\UserManagement\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cookie;
+use Stancl\Tenancy\Database\Models\Domain;
+use Modules\UserManagement\Http\Models\User;
 
 class UserManagementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function register(Request $request)
     {
-        return view('usermanagement::index');
+        return User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function login(Request $request)
     {
-        return view('usermanagement::create');
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'subdomain' => 'required',
+        ]);
+
+        $domain = Domain::where('domain', $request->subdomain . '.' . config('tenancy.central_domains')[0])->first();
+
+        if (!$domain) {
+            return response([
+                'message' => 'Invalid subdomain',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $tenant = Tenant::find($domain->tenant_id);
+
+        if (!$tenant) {
+            return response([
+                'message' => 'Invalid tenant',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        tenancy()->initialize($tenant);
+
+        if(!Auth::attempt($request->only('email', 'password'))){
+            return response([
+                'message' => 'Invalid credentials',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $token = Auth::user()->createToken('token')->plainTextToken;
+
+        $cookie = cookie('token', $token, 60 * 24);
+        $tenantCookie = cookie('tenant', $tenant->id, 60 * 24);
+
+        $response['token'] = $token;
+        $response['tenant'] = $tenant->id;
+
+        return response([
+            'message' => 'Authenticated',
+            'token' => $token,
+            'tenant' => $tenant->id,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
+    public function user()
     {
-        //
+        return Auth::user();
     }
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function logout()
     {
-        return view('usermanagement::show');
-    }
+        $cookie = Cookie::forget('jwt');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('usermanagement::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        return response([
+            'message' => 'Logged out',
+        ])->withCookie($cookie);
     }
 }

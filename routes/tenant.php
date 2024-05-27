@@ -24,13 +24,3 @@ Route::middleware(['api', InitializeTenancyByRequestData::class])->prefix('api')
     });
 });
 
-Route::middleware('api')->prefix('api')->group(function () {
-    Route::prefix('user')->group(function () {
-        Route::middleware('auth:sanctum')->group(function () {
-            Route::get('/', [AuthController::class, 'user']);
-            Route::post('/logout', [AuthController::class, 'logout']);
-        });
-        Route::post('/register', [AuthController::class, 'register']);
-        Route::post('/login', [AuthController::class, 'login']);
-    });
-});
