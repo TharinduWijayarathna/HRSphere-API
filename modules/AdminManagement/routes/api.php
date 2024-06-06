@@ -18,9 +18,9 @@ Route::middleware('api')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::middleware('auth:sanctum')->group(function () {
             Route::get('/', [AdminManagementController::class, 'admin']);
-            Route::post('/logout', [AdminManagementController::class, 'admin_logout']);
+            Route::post('/logout', [AdminManagementController::class, 'logout']);
         });
-        Route::post('/register', [AdminManagementController::class, 'admin_register']);
-        Route::post('/login', [AdminManagementController::class, 'admin_login']);
+        Route::post('/register', [AdminManagementController::class, 'register']);
+        Route::post('/login', [AdminManagementController::class, 'login']);
     });
 });
