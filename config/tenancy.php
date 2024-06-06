@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 use Stancl\Tenancy\Database\Models\Domain;
 use Stancl\Tenancy\Database\Models\Tenant;
@@ -18,7 +18,7 @@ return [
      */
     'central_domains' => [
         'localhost',
-        'hrphere.com'
+        'hrphere.com',
     ],
 
     /**
@@ -62,16 +62,16 @@ return [
             'mysql' => Stancl\Tenancy\TenantDatabaseManagers\MySQLDatabaseManager::class,
             'pgsql' => Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLDatabaseManager::class,
 
-        /**
-         * Use this database manager for MySQL to have a DB user created for each tenant database.
-         * You can customize the grants given to these users by changing the $grants property.
-         */
+            /**
+             * Use this database manager for MySQL to have a DB user created for each tenant database.
+             * You can customize the grants given to these users by changing the $grants property.
+             */
             // 'mysql' => Stancl\Tenancy\TenantDatabaseManagers\PermissionControlledMySQLDatabaseManager::class,
 
-        /**
-         * Disable the pgsql manager above, and enable the one below if you
-         * want to separate tenant DBs by schemas rather than databases.
-         */
+            /**
+             * Disable the pgsql manager above, and enable the one below if you
+             * want to separate tenant DBs by schemas rather than databases.
+             */
             // 'pgsql' => Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLSchemaManager::class, // Separate by schema instead of database
         ],
     ],
@@ -185,7 +185,20 @@ return [
      */
     'migration_parameters' => [
         '--force' => true, // This needs to be true to run migrations in production.
-        '--path' => [database_path('migrations/tenant')],
+        '--path' => [
+            database_path('migrations/tenant'),
+            base_path('modules/EmployeeManagement/database/migrations/tenant'),
+            base_path('modules/AttendanceManagement/database/migrations/tenant'),
+            base_path('modules/PayrollManagement/database/migrations/tenant'),
+            base_path('modules/TalentManagement/database/migrations/tenant'),
+            base_path('modules/TrainingAndDevelopmentManagement/database/migrations/tenant'),
+            base_path('modules/UserManagement/database/migrations/tenant'),
+            base_path('Modules/ReportingAndAnalytics/database/migrations/tenant'),
+            base_path('modules/ComplianceManagement/database/migrations/tenant'),
+            base_path('modules/TenantManagement/database/migrations/tenant'),
+            base_path('modules/Test/database/migrations/tenant'),
+            base_path('modules/AdminManagement/database/migrations/tenant'),
+        ],
         '--realpath' => true,
     ],
 

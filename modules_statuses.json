@@ -8,5 +8,6 @@
     "ReportingAndAnalytics": true,
     "ComplianceManagement": true,
     "TenantManagement": true,
-    "Test": true
+    "Test": true,
+    "AdminManagement": true
 }

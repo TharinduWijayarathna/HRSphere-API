@@ -1,0 +1,30 @@
+{
+    "name": "hrsphere/adminmanagement",
+    "description": "",
+    "authors": [
+        {
+            "name": "Tharindu Wijayarathna",
+            "email": "wikum.dev@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\AdminManagement\\": "app/",
+            "modules\\AdminManagement\\Database\\Factories\\": "database/factories/",
+            "modules\\AdminManagement\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "modules\\AdminManagement\\Tests\\": "tests/"
+        }
+    }
+}
