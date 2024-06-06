@@ -1,6 +1,6 @@
 <?php
 
-use modules\UserManagement\Http\Models\User;
+use modules\UserManagement\Models\User;
 
 return [
 
