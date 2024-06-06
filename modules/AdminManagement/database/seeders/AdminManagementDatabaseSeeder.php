@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AdminManagement\Database\Seeders;
+namespace modules\AdminManagement\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -11,6 +11,8 @@ class AdminManagementDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
+        $this->call([
+            AdminSeeder::class,
+        ]);
     }
 }
