@@ -20,7 +20,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 Route::middleware(['api', InitializeTenancyByRequestData::class])->prefix('api')->group(function () {
     Route::prefix('employee')->group(function () {
         Route::get('/list', [EmployeeManagementController::class, 'list']);
-        Route::get('/filter', [EmployeeManagementController::class, 'all']);
+        Route::get('/filter', [EmployeeManagementController::class, 'filter']);
         Route::post('/store', [EmployeeManagementController::class, 'store']);
         Route::get('/get/{id}', [EmployeeManagementController::class, 'get']);
         Route::post('/update/{id}', [EmployeeManagementController::class, 'update']);

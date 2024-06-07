@@ -3,65 +3,93 @@
 namespace modules\TenantManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use modules\TenantManagement\Models\Tenant;
+use modules\TenantManagement\Transformers\TenantFilterResource;
 
 class TenantManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return Response
      */
-    public function index()
+    public function list()
     {
-        return view('tenantmanagement::index');
+        return response()->json([
+            'message' => 'List method',
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Filter the specified resource.
+     *
+     * @param Request $request
+     * @return Response
      */
-    public function create()
+
+    public function filter(Request $request)
     {
-        return view('tenantmanagement::create');
+        $query = Tenant::with('domain');
+        if ($request->has('search')) {
+            $query->where('data', 'like', '%' . $request->input('search') . '%');
+        }
+
+        $tenants = $query->paginate($request->input('size', 10), ['*'], 'page', $request->input('page', 1));
+        return TenantFilterResource::collection($tenants);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return Response
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        //
+        return response()->json([
+            'message' => 'Store method',
+        ]);
     }
 
     /**
-     * Show the specified resource.
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return Response
      */
-    public function show($id)
+    public function get($id)
     {
-        return view('tenantmanagement::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('tenantmanagement::edit');
+        return response()->json([
+            'message' => 'Edit method',
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
-        //
+        return response()->json([
+            'message' => 'Update method',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        return response()->json([
+            'message' => 'Destroy method',
+        ]);
     }
 }

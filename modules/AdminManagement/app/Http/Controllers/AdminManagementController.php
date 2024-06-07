@@ -48,7 +48,7 @@ class AdminManagementController extends Controller
 
         $token = $admin->createToken('admin-token')->plainTextToken;
 
-        return response(['token' => $token], Response::HTTP_OK);
+        return response(['token' => $token, 'user' => $admin], Response::HTTP_OK);
     }
 
     public function logout(Request $request): Response
@@ -58,4 +58,3 @@ class AdminManagementController extends Controller
         return response(['message' => 'Logged out'], Response::HTTP_OK);
     }
 }
-
