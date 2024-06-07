@@ -3,7 +3,6 @@
 namespace modules\AdminManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +20,7 @@ class AdminManagementController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|email|unique:admins,email', // Updated validation rule
+            'email' => 'required|string|email|unique:admins',
             'password' => 'required|string|confirmed',
         ]);
 
@@ -31,7 +30,7 @@ class AdminManagementController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return response($admin);
+        return response($admin, Response::HTTP_CREATED);
     }
 
     public function login(Request $request): Response
@@ -42,20 +41,21 @@ class AdminManagementController extends Controller
         ]);
 
         if (!Auth::guard('admin')->attempt($request->only('email', 'password'))) {
-            return response(['message' => 'Invalid credentials'], 401);
+            return response(['message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
         }
 
         $admin = Auth::guard('admin')->user();
 
         $token = $admin->createToken('admin-token')->plainTextToken;
 
-        return response(['token' => $token]);
+        return response(['token' => $token], Response::HTTP_OK);
     }
 
-    public function logout(Request $request): RedirectResponse
+    public function logout(Request $request): Response
     {
         $request->user('admin')->tokens()->delete();
 
-        return redirect('/');
+        return response(['message' => 'Logged out'], Response::HTTP_OK);
     }
 }
+

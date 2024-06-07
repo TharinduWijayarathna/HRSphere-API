@@ -1,8 +1,5 @@
 <?php
 
-use modules\AdminManagement\Models\Admin;
-use modules\UserManagement\Models\User;
-
 return [
 
     /*
@@ -70,12 +67,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => User::class,
+            'model' => modules\UserManagement\Models\User::class,
         ],
 
         'admins' => [
             'driver' => 'eloquent',
-            'model' => Admin::class,
+            'model' => modules\AdminManagement\Models\Admin::class,
         ],
     ],
 
