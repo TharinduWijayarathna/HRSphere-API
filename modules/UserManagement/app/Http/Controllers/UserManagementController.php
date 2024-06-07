@@ -2,33 +2,40 @@
 
 namespace modules\UserManagement\Http\Controllers;
 
-use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cookie;
+use modules\TenantManagement\Models\Tenant;
+use modules\UserManagement\Models\User;
 use Stancl\Tenancy\Database\Models\Domain;
-use modules\UserManagement\Http\Models\User;
 
 class UserManagementController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): Response
     {
-        return User::create([
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
         ]);
+
+        return response($user, Response::HTTP_CREATED);
     }
 
-    public function login(Request $request)
+    public function login(Request $request): Response
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
-            'subdomain' => 'required',
+            'password' => 'required|string',
+            'subdomain' => 'required|string',
         ]);
 
         $domain = Domain::where('domain', $request->subdomain . '.' . config('tenancy.central_domains')[0])->first();
@@ -49,38 +56,45 @@ class UserManagementController extends Controller
 
         tenancy()->initialize($tenant);
 
-        if(!Auth::attempt($request->only('email', 'password'))){
+        if (!Auth::guard('web')->attempt($request->only('email', 'password'))) {
             return response([
                 'message' => 'Invalid credentials',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $token = Auth::user()->createToken('token')->plainTextToken;
+        $user = Auth::guard('web')->user();
 
-        $cookie = cookie('token', $token, 60 * 24);
-        $tenantCookie = cookie('tenant', $tenant->id, 60 * 24);
+        $token = $user->createToken('token')->plainTextToken;
 
-        $response['token'] = $token;
-        $response['tenant'] = $tenant->id;
+        $cookie = cookie('token', $token, 60 * 24); // 1 day
+        $tenantCookie = cookie('tenant', $tenant->id, 60 * 24); // 1 day
 
         return response([
             'message' => 'Authenticated',
             'token' => $token,
             'tenant' => $tenant->id,
-        ]);
+        ])->withCookie($cookie)->withCookie($tenantCookie);
     }
 
-    public function user()
+    public function user(): Response
     {
-        return Auth::user();
+        $user = Auth::guard('web')->user();
+        return response($user, Response::HTTP_OK);
     }
 
-    public function logout()
+    public function logout(Request $request): Response
     {
-        $cookie = Cookie::forget('jwt');
+        $user = Auth::guard('web')->user();
+
+        if ($user) {
+            $user->tokens()->delete();
+        }
+
+        $cookie = Cookie::forget('token');
+        $tenantCookie = Cookie::forget('tenant');
 
         return response([
             'message' => 'Logged out',
-        ])->withCookie($cookie);
+        ])->withCookie($cookie)->withCookie($tenantCookie);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AdminManagement\Http\Controllers;
+namespace modules\AdminManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -8,30 +8,30 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use modules\AdminManagement\Models\Admin;
+use Modules\AdminManagement\Models\Admin;
 
 class AdminManagementController extends Controller
 {
     public function admin(Request $request): Response
     {
-        return response($request->user());
+        return response($request->user('admin'));
     }
 
     public function register(Request $request): Response
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
+            'email' => 'required|string|email|unique:admins,email', // Updated validation rule
             'password' => 'required|string|confirmed',
         ]);
 
-        $user = Admin::create([
+        $admin = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return response($user);
+        return response($admin);
     }
 
     public function login(Request $request): Response
@@ -41,20 +41,20 @@ class AdminManagementController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response(['message' => 'Invalid credentials']);
+        if (!Auth::guard('admin')->attempt($request->only('email', 'password'))) {
+            return response(['message' => 'Invalid credentials'], 401);
         }
 
-        $user = $request->user();
+        $admin = Auth::guard('admin')->user();
 
-        $token = $user->createToken('token')->plainTextToken;
+        $token = $admin->createToken('admin-token')->plainTextToken;
 
         return response(['token' => $token]);
     }
 
     public function logout(Request $request): RedirectResponse
     {
-        $request->user()->tokens()->delete();
+        $request->user('admin')->tokens()->delete();
 
         return redirect('/');
     }

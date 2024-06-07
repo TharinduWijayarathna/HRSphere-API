@@ -3,65 +3,87 @@
 namespace modules\EmployeeManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class EmployeeManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return Response
      */
-    public function index()
+    public function list()
     {
-        return view('employeemanagement::index');
+        return response()->json([
+            'message' => 'List method',
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Filter the specified resource.
+     *
+     * @param Request $request
+     * @return Response
      */
-    public function create()
+
+    public function filter(Request $request)
     {
-        return view('employeemanagement::create');
+        return response()->json([
+            'message' => 'Filter method',
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return Response
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        //
+        return response()->json([
+            'message' => 'Store method',
+        ]);
     }
 
     /**
-     * Show the specified resource.
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return Response
      */
-    public function show($id)
+    public function get($id)
     {
-        return view('employeemanagement::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('employeemanagement::edit');
+        return response()->json([
+            'message' => 'Edit method',
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
-        //
+        return response()->json([
+            'message' => 'Update method',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        return response()->json([
+            'message' => 'Destroy method',
+        ]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use modules\AdminManagement\Models\Admin;
 use modules\UserManagement\Models\User;
 
 return [
@@ -13,7 +14,7 @@ return [
     | reset options for your application. You may change these defaults
     | as required, but they're a perfect start for most applications.
     |
-    */
+     */
 
     'defaults' => [
         'guard' => 'web',
@@ -35,12 +36,17 @@ return [
     |
     | Supported: "session"
     |
-    */
+     */
 
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
 
@@ -59,7 +65,7 @@ return [
     |
     | Supported: "database", "eloquent"
     |
-    */
+     */
 
     'providers' => [
         'users' => [
@@ -67,10 +73,10 @@ return [
             'model' => User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => Admin::class,
+        ],
     ],
 
     /*
@@ -90,7 +96,7 @@ return [
     | generating more password reset tokens. This prevents the user from
     | quickly generating a very large amount of password reset tokens.
     |
-    */
+     */
 
     'passwords' => [
         'users' => [
@@ -110,7 +116,7 @@ return [
     | times out and the user is prompted to re-enter their password via the
     | confirmation screen. By default, the timeout lasts for three hours.
     |
-    */
+     */
 
     'password_timeout' => 10800,
 
