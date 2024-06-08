@@ -3,8 +3,8 @@
 declare (strict_types = 1);
 
 use Illuminate\Support\Facades\Route;
-use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 use modules\TenantManagement\Http\Controllers\TenantManagementController;
+use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 
 /*
  *--------------------------------------------------------------------------
@@ -17,12 +17,11 @@ use modules\TenantManagement\Http\Controllers\TenantManagementController;
  *
  */
 
-Route::middleware(['api', InitializeTenancyByRequestData::class])->prefix('api')->group(function () {
+Route::middleware(['api', InitializeTenancyByRequestData::class])->group(function () {
 
 });
 
-
-Route::prefix('tenant')->group(function () {
+Route::middleware('api')->prefix('tenant')->group(function () {
     Route::get('/list', [TenantManagementController::class, 'list']);
     Route::get('/filter', [TenantManagementController::class, 'filter']);
     Route::post('/store', [TenantManagementController::class, 'store']);
