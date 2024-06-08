@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use modules\TenantManagement\Models\Tenant;
 use modules\TenantManagement\Transformers\TenantFilterResource;
+use Stancl\Tenancy\Database\Models\Domain;
 
 class TenantManagementController extends Controller
 {
@@ -31,7 +32,7 @@ class TenantManagementController extends Controller
 
     public function filter(Request $request)
     {
-        $query = Tenant::with('domain');
+        $query = Tenant::with('domain')->orderBy('created_at', 'desc');
         if ($request->has('search')) {
             $query->where('data', 'like', '%' . $request->input('search') . '%');
         }
@@ -48,9 +49,14 @@ class TenantManagementController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json([
-            'message' => 'Store method',
+
+        $tenant = Tenant::create($request->all());
+
+        Domain::create([
+            'domain' => $request->input('domain'),
+            'tenant_id' => $tenant->id,
         ]);
+        return response()->json(['message' => 'Tenant and domain created successfully'], 201);
     }
 
     /**
