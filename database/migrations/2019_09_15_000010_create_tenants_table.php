@@ -21,8 +21,11 @@ class CreateTenantsTable extends Migration
             $table->string('address')->nullable();
             $table->bigInteger('country_id')->nullable();
             $table->bigInteger('tenant_signature_id')->nullable();
-            $table->timestamps();
+            $table->bigInteger('tenant_logo_id')->nullable();
+            $table->integer('payment_status')->default(0);
+            $table->integer('status')->default(1);
             $table->json('data')->nullable();
+            $table->timestamps();
         });
     }
 
